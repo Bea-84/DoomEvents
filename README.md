@@ -36,16 +36,6 @@ Algunos detalles a tener en cuenta:
   - Legibilidad, sencillez y calidad del código.
   - Conocimientos de programación. Por ejemplo, no utilizar las estructuras de control adecuadas, como utilizar un bucle para construir una sentencia condicional o viceversa.
 
-## Requisitos mínimos
-
-- Tener instalado Visual Studio Code.
-- Conocimientos básicos de Git y GitHub (Actividades 2 y 3 del Reto 1).
-- Estudio de la introducción y repaso a JavaScript (Actividad 1 del Reto 2).
-- Estudio de los conceptos de JavaScript (Actividades 2 y 3 del Reto 2).
-- Estudio de la introducción a la asincronía en JavaScript (Actividad 1 del Reto 3).
-- Estudio de los conceptos de asincronía de JavaScript (Actividad 2 del Reto 3).
-- Estudio de los materiales y ejercicio sobre manipulación del DOM (Actividades 1 y 2 del Reto 4).
-
 ## Ejercicios prácticos (10 p)
 
 Para realizar los ejercicios prácticos debes dirigirte a la siguiente ruta, dentro del repositorio: `src/web/js/code.js`.
