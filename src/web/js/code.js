@@ -11,20 +11,21 @@ export function queryDOM() {
     const resultArray = [];
 
     // Índice 0
-    resultArray.push(document.getElementById(''));
+    resultArray.push(document.getElementById('totalPrice'));
 
     // Índice 1
-    resultArray.push(document.querySelectorAll(''));
+    resultArray.push(document.querySelectorAll('h2'));
 
     // Índice 2
-    resultArray.push(document.querySelectorAll(''));
+    resultArray.push(document.querySelectorAll('.product'));
 
     // Índice 3
-    resultArray.push(document.querySelectorAll(''));
+    resultArray.push(document.querySelectorAll('p.price'));
 
     // Índice 4
-    const peachButton = document.querySelector('');
+    const peachButton = document.querySelector('.products [data-name="Peach"] button');
     resultArray.push(peachButton);
+
 
     return resultArray;
 }
@@ -45,12 +46,20 @@ export function createCartElement(item) {
     divPanel.classList.add('panel');
 
     //Crea la cabecera H3 con el nombre del elemento
-
-
+    const h3 = document.createElement('h3');
+    //Añade el texto del elemento a la cabecera H3
+    h3.textContent = item.name;
+    
     //Crea un elemento span con el texto {units} piece for {price} €
-
+    const span = document.createElement('span');
+    span.textContent = `${item.units} piece for ${item.price*item.units} €`;
+    // Añade la clase label al elemento span
+    span.classList.add('label');
 
     // Anidar elementos al div principal
+    divPanel.appendChild(h3);
+    divPanel.appendChild(span);
+    
   
     //Devolver div
     return divPanel;
@@ -59,12 +68,22 @@ export function createCartElement(item) {
 // Exercise 3 (1p)
 export function emptyCart() {
     //Obtener el elemento cartItems(carrito)
+    var cartContainer = document.getElementById('cartItems');
 
     // Obtener todos los elementos con una clase panel dentro del contenedor del carrito
+    var panelItems = cartContainer.getElementsByClassName('panel');
 
     // Convertir la colección HTML (paneles) en un array para facilitar la iteración
+    var panelArray = Array.from(panelItems);
 
     // Recorrer y eliminar cada elemento panel
+    for (var i = 0; i < panelArray.length; i++) {
+        var panel = panelArray[i];
+        panel.remove();
+        console.log('Eliminar');
+    };
+    
+    
   
 }
 
@@ -139,22 +158,40 @@ export function addToCart(itemAdded) {
 export function addListeners() {
     // Event listener para el botón "Clear Cart" que llame a emptyCart()
     var clearButton = document.getElementById('clear');
-    
 
+    clearButton.addEventListener('click', function () {
+        console.log('clear');
+        emptyCart();
+    });
+    
     // Event listener para el botón "Update Total" que llame a updateCartTotal()
+    var updateButton = document.getElementById('update');
+
+    updateButton.addEventListener('click', function () {
+        console.log('update');
+        updateCartTotal();
+    });
     
 
     // Event listener para los botones "Add to Cart"
+
+    // Recorre todos los botones con clase "button" y agrega un listener para cada botón.
     var addToCartButtons = document.querySelectorAll('.product button');
+
+    //Función que se ejecuta cuando se hace click en un botón "Add to Cart"
     addToCartButtons.forEach(function (button) {
+
         button.addEventListener('click', function () {
             // Obtener el elemento padre .product del botón actual
+            var product = button.parentElement;
            
+           // Obtener los datos del producto desde el elemento
+           var itemName = product.querySelector('h3').textContent; 
+           var itemPrice = product.querySelector('.price').textContent;
+           // Extraer solo el número del texto del precio
+           var itemPrice = parseInt(itemPrice.match(/\d+/)[0]);
+           var itemUnits = parseInt(product.querySelector('.count').value);
 
-            // Obtener los datos del producto desde el elemento
-            var itemName = null;
-            var itemPrice = null;
-            var itemUnits = null;
 
             // Crear un objeto de tipo item
             var item = {
@@ -164,6 +201,8 @@ export function addListeners() {
             };
 
             // Llamar a la función addToCart con el objeto item como parámetro
+            console.log(item);
+            addToCart(item);
             
         });
 
